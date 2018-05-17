@@ -1,0 +1,20 @@
+procedure TForm1.N21Click(Sender: TObject);
+begin
+  Form1.Color:=clNavy;
+  Image1.Picture.LoadFromFile('narr.bmp');
+  Image2.Picture.LoadFromFile('2narr.bmp');
+  Form1.Font.Color:=clScrollBar;
+  Form3.Color:=clNavy;
+  Form2.Color:=clNavy;
+end;
+
+procedure TForm1.N22Click(Sender: TObject);
+begin
+  Form1.Color:=clWhite;
+  Image1.Picture.LoadFromFile('arr.bmp');
+  Image2.Picture.LoadFromFile('2arr.bmp');
+  Form1.Font.Color:=clWindowText;
+  Form3.Color:=clWhite;
+  Form3.Font.Color:=clWindowText;
+  Form2.Color:=clNavy;
+end;
