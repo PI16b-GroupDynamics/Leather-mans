@@ -1,0 +1,36 @@
+procedure TForm1.Word1Click(Sender: TObject);
+var
+  wdApp, wdDocs, wdDoc : Variant;
+  Od : TOpenDialog;
+begin
+  Od := OpenDialog2;
+  if Od.InitialDir = '' then
+    Od.InitialDir := ExtractFilePath( Application.ExeName );
+  if not Od.Execute then Exit;
+  if not FileExists(Od.FileName) then begin
+    MessageDlg(
+      'Файл с заданным именем не найден. Действие отменено.'
+      ,mtWarning, [mbOK], 0
+    );
+    Exit;
+  end;
+  //Пытаемся запустить MS Word и получить ссылку на объект Application.
+  //- Это корневой объект в объектной структуре MS Word.
+  try
+    wdApp := CreateOleObject('Word.Application');
+  except
+    ShowMessage('Не удалось запустить MS Word. Действие отменено.');
+    Exit;
+  end;
+
+  //Если требуется, делаем видимым окно MS Word.
+  wdApp.Visible := True;
+  //Ссылка на коллекцию документов.
+  wdDocs := wdApp.Documents;
+  //Попытка открыть выбранный файл и получить ссылку на объект документа.
+  wdDoc := wdDocs.Open(FileName:=Od.FileName);
+  //Читаем текст документа и записываем его в Мемо.
+  Memo1.Text := wdDoc.Range.Text;
+  //Закрываем MS Word.
+  wdApp.Quit;
+end;

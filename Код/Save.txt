@@ -1,0 +1,21 @@
++procedure TForm1.N8Click(Sender: TObject);
++  var sd: TSaveDialog;
++begin
++  if SaveDialog1.Execute then
++    begin
++      sd:=TSaveDialog.Create(self);
++      Memo1.Lines.SaveToFile(Form1.SaveDialog1.FileName);
++      sd.Free;
++    end;
++end;
++
++procedure TForm1.N6Click(Sender: TObject);
++  var sd: TSaveDialog;
++begin
++  if SaveDialog2.Execute then
++    begin
++      sd:=TSaveDialog.Create(self);
++      Memo2.Lines.SaveToFile(Form1.SaveDialog2.FileName);
++      sd.Free;
++    end;
++end;
