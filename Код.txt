@@ -1,0 +1,367 @@
+unit Unit1;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, ExtCtrls, Menus, Shellapi, ComCtrls, ComObj, Buttons;
+
+type
+  TForm1 = class(TForm)
+    Memo1: TMemo;
+    Memo2: TMemo;
+    Button2: TButton;
+    Button3: TButton;
+    Image1: TImage;
+    MainMenu1: TMainMenu;
+    N1: TMenuItem;
+    N2: TMenuItem;
+    N3: TMenuItem;
+    N4: TMenuItem;
+    N5: TMenuItem;
+    N6: TMenuItem;
+    N8: TMenuItem;
+    N7: TMenuItem;
+    N9: TMenuItem;
+    N10: TMenuItem;
+    N11: TMenuItem;
+    N12: TMenuItem;
+    N13: TMenuItem;
+    N14: TMenuItem;
+    N15: TMenuItem;
+    N16: TMenuItem;
+    N17: TMenuItem;
+    N18: TMenuItem;
+    N19: TMenuItem;
+    N20: TMenuItem;
+    SaveDialog1: TSaveDialog;
+    OpenDialog1: TOpenDialog;
+    SaveDialog2: TSaveDialog;
+    N21: TMenuItem;
+    N22: TMenuItem;
+    Timer1: TTimer;
+    Image2: TImage;
+    OpenDialog2: TOpenDialog;
+    N23: TMenuItem;
+    Word1: TMenuItem;
+    Edit1: TEdit;
+    N24: TMenuItem;
+    N25: TMenuItem;
+    N26: TMenuItem;
+    procedure Button2Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure Image1Click(Sender: TObject);
+    procedure N20Click(Sender: TObject);
+    procedure N8Click(Sender: TObject);
+    procedure N6Click(Sender: TObject);
+    procedure N21Click(Sender: TObject);
+    procedure N22Click(Sender: TObject);
+    procedure N11Click(Sender: TObject);
+    procedure N12Click(Sender: TObject);
+    procedure N13Click(Sender: TObject);
+    procedure N15Click(Sender: TObject);
+    procedure N16Click(Sender: TObject);
+    procedure N17Click(Sender: TObject);
+    procedure N19Click(Sender: TObject);
+    procedure N18Click(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
+    procedure Word1Click(Sender: TObject);
+    procedure N23Click(Sender: TObject);
+    procedure N26Click(Sender: TObject);
+    procedure N25Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+  i: integer;
+  MSWord: OleVariant;
+
+implementation
+
+uses Unit2, Unit3, Unit4;
+
+{$R *.dfm}
+
+procedure TForm1.Button2Click(Sender: TObject);
+begin
+  Memo1.Clear;
+end;
+
+procedure TForm1.Button3Click(Sender: TObject);
+begin
+  Memo2.Clear;
+end;
+
+procedure TForm1.FormCreate(Sender: TObject);
+begin
+  Image1.Picture.LoadFromFile('arr.bmp');
+  Image2.Picture.LoadFromFile('2arr.bmp');
+  i:=0;
+end;
+
+procedure TForm1.Image1Click(Sender: TObject);
+  var I:Integer;
+      s:string;
+begin
+  Image1.Visible:=False;
+  Image2.Visible:=True;
+  Timer1.Interval:=300;
+  Memo1.Text:=Memo1.Text + ' ';
+  for i:=0 to Length(Memo1.Text) do
+    begin
+      if (Memo1.Text[i]>='0') and (Memo1.Text[i]<='9') then
+        s:=s+Memo1.Text[i]
+      else
+        if s<>'' then
+          begin
+            //Memo2.Text:=Memo2.Text + ' ' + s;   //- вывод построчно
+            Memo2.Lines.Add(s);                 //- вывод в столбец
+            s:='';
+          end;
+    end;
+end;
+
+procedure TForm1.N20Click(Sender: TObject);
+begin
+  if Application.MessageBox('Выйти из программы?', 'Выйти',
+     MB_YESNO+MB_ICONQUESTION) = IDYES then
+     close;
+end;
+
+procedure TForm1.N8Click(Sender: TObject);
+  var sd: TSaveDialog;
+begin
+  if SaveDialog1.Execute then
+    begin
+      sd:=TSaveDialog.Create(self);
+      Memo1.Lines.SaveToFile(Form1.SaveDialog1.FileName);
+      sd.Free;
+    end;
+end;
+
+procedure TForm1.N6Click(Sender: TObject);
+  var sd: TSaveDialog;
+begin
+  if SaveDialog2.Execute then
+    begin
+      sd:=TSaveDialog.Create(self);
+      Memo2.Lines.SaveToFile(Form1.SaveDialog2.FileName);
+      sd.Free;
+    end;
+end;
+
+procedure TForm1.N21Click(Sender: TObject);
+begin
+  Form1.Color:=clNavy;
+  Image1.Picture.LoadFromFile('narr.bmp');
+  Image2.Picture.LoadFromFile('2narr.bmp');
+  Form1.Font.Color:=clScrollBar;
+  Form3.Color:=clNavy;
+  Form2.Color:=clNavy;
+end;
+
+procedure TForm1.N22Click(Sender: TObject);
+begin
+  Form1.Color:=clWhite;
+  Image1.Picture.LoadFromFile('arr.bmp');
+  Image2.Picture.LoadFromFile('2arr.bmp');
+  Form1.Font.Color:=clWindowText;
+  Form3.Color:=clWhite;
+  Form3.Font.Color:=clWindowText;
+  Form2.Color:=clNavy;
+end;
+
+procedure TForm1.N11Click(Sender: TObject);
+begin
+  Form2.Visible:=True;
+end;
+
+procedure TForm1.N12Click(Sender: TObject);
+begin
+  Form1.Font.Size:=Form1.Font.Size + 2;
+end;
+
+procedure TForm1.N13Click(Sender: TObject);
+begin
+  Form1.Font.Size:=Form1.Font.Size - 2;
+end;
+
+procedure TForm1.N15Click(Sender: TObject);
+begin
+  if i>=3 then begin
+    Form1.N15.Enabled:=False;
+    Form1.N16.Enabled:=True;
+     end;
+   if i<3 then begin
+    Form1.N15.Enabled:=True;
+    Form1.N16.Enabled:=True;
+  end;
+  {if Form1.Height<=530 then
+    begin
+      Form1.N15.Enabled:=True;
+    end;}
+  Form1.Width:=Form1.Width + 120;
+  Form1.Left:=Form1.Left - 50;
+  Form1.Height:=Form1.Height + 60;
+  Form1.Top:=Form1.Top - 20;
+  Memo1.Width:=Memo1.Width + 50;
+  Memo1.Height:=Memo1.Height + 50;
+  Memo2.Width:=Memo2.Width + 50;
+  Memo2.Height:=Memo2.Height + 50;
+  Memo2.Left:=Memo2.Left + 50;
+  Image1.Left:=Image1.Left + 50;
+  Button2.Top:=Button2.Top + 50;
+  Button2.Width:=Button2.Width + 50;
+  Button3.Top:=Button3.Top + 50;
+  Button3.Width:=Button3.Width + 50;
+  Button3.Left:=Button3.Left + 50;
+  Image1.Top:=Image1.Top + 15;
+  Image2.Top:=Image1.Top;
+  Image2.Left:=Image1.Left;
+  i:=i+1;
+end;
+
+procedure TForm1.N16Click(Sender: TObject);
+begin
+  if i<=-1 then begin
+    Form1.N16.Enabled:=False;
+    Form1.N15.Enabled:=True;  end;
+  if i>-1 then begin
+    Form1.N16.Enabled:=True;
+    Form1.N15.Enabled:=True;
+  end;
+    Form1.Top:=Form1.Top + 20;
+    Form1.Left:=Form1.Left + 50;
+    Form1.Width:=Form1.Width - 110;
+    Form1.Height:=Form1.Height - 55;
+    Memo1.Width:=Memo1.Width - 50;
+    Memo1.Height:=Memo1.Height - 50;
+    Memo2.Width:=Memo2.Width - 50;
+    Memo2.Height:=Memo2.Height - 50;
+    Memo2.Left:=Memo2.Left - 50;
+    Image1.Left:=Image1.Left - 50;
+    Image1.Top:=Image1.Top - 8;
+    Button2.Top:=Button2.Top - 50;
+    Button2.Width:=Button2.Width - 50;
+    Button3.Top:=Button3.Top - 50;
+    Button3.Width:=Button3.Width - 50;
+    Button3.Left:=Button3.Left - 50;
+    Image2.Top:=Image1.Top;
+    Image2.Left:=Image1.Left;
+    i:=i-1;
+  end;
+
+procedure TForm1.N17Click(Sender: TObject);
+begin
+  ShowMessage('Программа "Поиск чисел в тексте", vol.0');
+end;
+
+procedure TForm1.N19Click(Sender: TObject);
+begin
+  Form3.Visible:=True;
+end;
+
+procedure TForm1.N18Click(Sender: TObject);
+begin
+  ShellExecute(0, nil, 'about.txt', nil, nil, SW_SHOWNORMAL);
+end;
+
+procedure TForm1.Timer1Timer(Sender: TObject);
+begin
+  Image1.Visible:=True;
+  Image2.Visible:=False;
+end;
+
+procedure TForm1.Word1Click(Sender: TObject);
+var
+  wdApp, wdDocs, wdDoc : Variant;
+  Od : TOpenDialog;
+begin
+  Od := OpenDialog2;
+  if Od.InitialDir = '' then
+    Od.InitialDir := ExtractFilePath( Application.ExeName );
+  if not Od.Execute then Exit;
+  if not FileExists(Od.FileName) then begin
+    MessageDlg(
+      'Файл с заданным именем не найден. Действие отменено.'
+      ,mtWarning, [mbOK], 0
+    );
+    Exit;
+  end;
+  //Пытаемся запустить MS Word и получить ссылку на объект Application.
+  //- Это корневой объект в объектной структуре MS Word.
+  try
+    wdApp := CreateOleObject('Word.Application');
+  except
+    ShowMessage('Не удалось запустить MS Word. Действие отменено.');
+    Exit;
+  end;
+
+  //Если требуется, делаем видимым окно MS Word.
+  wdApp.Visible := True;
+  //Ссылка на коллекцию документов.
+  wdDocs := wdApp.Documents;
+  //Попытка открыть выбранный файл и получить ссылку на объект документа.
+  wdDoc := wdDocs.Open(FileName:=Od.FileName);
+  //Читаем текст документа и записываем его в Мемо.
+  Memo1.Text := wdDoc.Range.Text;
+  //Закрываем MS Word.
+  wdApp.Quit;
+end;
+
+procedure TForm1.N23Click(Sender: TObject);
+var od: TOpenDialog;
+begin
+  if OpenDialog1.Execute then
+    begin
+      od:=TOpenDialog.Create(self);
+      Memo1.Lines.LoadFromFile(Form1.OpenDialog1.FileName);
+      od.Free;
+    end;
+end;
+
+function Sort(List: TStringList; Index1, Index2: integer): Integer;
+begin
+  Result:=StrToInt(List[Index1]) - StrToInt(List[Index2]);
+end;
+
+procedure TForm1.N26Click(Sender: TObject);
+  var t: TStringList;
+begin
+    t:= TStringList.Create;
+    t.Assign(memo2.lines);
+    t.CustomSort(Sort);
+    edit1.text:=t[0];
+    memo2.Lines.Assign(t);
+end;
+
+procedure TForm1.N25Click(Sender: TObject);
+  var t: TStringList;
+      i, j, p: integer;
+      f: double;
+begin
+    t:= TStringList.Create;
+    p:=0;
+    t.Assign(memo2.lines);
+    t.CustomSort(Sort);
+    form4.label1.caption:=t[0];
+    for i:=0 to form1.Memo2.Lines.Count - 1 do
+      begin
+          p:=p+strtoint(t[i]);
+          form4.label2.caption:=t[i];
+          form4.label4.caption:=inttostr(p);
+          f:=(p/(form1.Memo2.Lines.Count));
+          form4.label5.caption:=floattostr(f);
+      end;
+
+
+
+    form4.Visible:=True;
+end;
+
+end.
