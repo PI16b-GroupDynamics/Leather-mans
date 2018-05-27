@@ -1,0 +1,20 @@
+procedure TForm1.Image1Click(Sender: TObject);
+  var I:Integer;
+      s:string;
+begin
+  Image1.Visible:=False;
+  Image2.Visible:=True;
+  Timer1.Interval:=300;
+  Memo1.Text:=Memo1.Text + ' ';
+  for i:=0 to Length(Memo1.Text) do
+    begin
+      if (Memo1.Text[i]>='0') and (Memo1.Text[i]<='9') then
+        s:=s+Memo1.Text[i]
+      else
+        if s<>'' then
+          begin
+            Memo2.Lines.Add(s);                 //- вывод в стобец
+            s:='';
+          end;
+    end;
+end;
