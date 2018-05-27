@@ -1,0 +1,21 @@
+procedure TForm1.N25Click(Sender TObject);
+  var t TStringList;
+      i, j, p integer;
+      f double;
+begin
+    t= TStringList.Create;
+    p=0;
+    t.Assign(memo2.lines);
+    t.CustomSort(Sort);
+    form4.label1.caption=t[0];
+    for i=0 to form1.Memo2.Lines.Count - 1 do
+      begin
+          p=p+strtoint(t[i]);
+          form4.label2.caption=t[i];
+          form4.label4.caption=inttostr(p);
+          f=(p(form1.Memo2.Lines.Count));
+          form4.label5.caption=floattostr(f);
+      end;
+
+    form4.Visible=True;
+end;
