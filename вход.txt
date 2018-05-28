@@ -1,0 +1,50 @@
+thisform.command1.BackColor = RGB(244,11,111)
+thisform.timer1.Enabled = .T.
+*SELECT enter
+PUBLIC SS
+SS = 0
+IF !EOF() AND !BOF()
+	SCAN
+    	IF (((THISFORM.text1.Value)=enter.login) AND ((THISFORM.text2.value)=enter.password))
+    	
+    			IF ((enter.access) = "Администратор")
+    				cStr = Dtoc(Date())
+    				cV = Time()
+    				cL = THISFORM.text1.Value
+    				cP = "Администратор"
+ 					INSERT INTO journal (time1, time2, login, access);
+					VALUES (cStr, cV, cL, cP)
+    				SS = 1
+    				thisform.Height = 165
+    				*RUN 'Project1.exe'
+    				DO FORM ахт
+    			ENDIF
+    			IF ((enter.access) = "Пользователь")
+    				SS = 0
+    				cStr = Dtoc(Date())
+    				cV = Time()
+    				cL = THISFORM.text1.Value
+    				cP = "Пользователь"
+ 					INSERT INTO journal (time1, time2, login, access);
+					VALUES (cStr, cV, cL, cP)
+    				thisform.Height = 165
+    				*DO FORM message
+    				RUN 'Project1.exe'
+    			ENDIF
+    			
+    			*ENDIF
+    		*thisform.Height = 165
+    		*thisform.release
+    		*DO FORM osn1
+    	ELSE
+    		thisform.Height = 190
+    		thisform.refresh
+    	ENDIF
+    ENDSCAN
+    SET DELETED ON
+	GO TOP
+	THISFORM.grid1.Refresh()
+ENDIF
+*CLOSE TABLES бумага
+
+USE enter EXCLUSIVE
