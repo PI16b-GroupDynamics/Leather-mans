@@ -1,0 +1,25 @@
+IF ((thisform.text1.width = 156) OR (thisform.text2.width = 156) OR (THISFORM.text3.Width = 156) OR (THISFORM.combo1.Width = 156))
+	thisform.refresh
+	thisform.height = 232
+	thisform.label5.visible = .T.
+ELSE
+cName = thisform.text1.Value
+cLogin = thisform.text2.Value
+cPassword = thisform.text3.Value
+cAccess = thisform.combo1.Value
+
+INSERT INTO enter (name, login, password, access);
+VALUES (cName, cLogin, cPassword, cAccess)
+
+thisform.text1.width = 156
+thisform.text2.width = 156
+thisform.text3.width = 156
+thisform.combo1.width = 156
+
+thisform.label5.visible = .F.
+thisform.Release
+DO FORM start
+ENDIF
+
+thisform.command1.BackColor = RGB(244,11,111)
+thisform.timer1.Enabled = .T.
